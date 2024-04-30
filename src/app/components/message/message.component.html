@@ -1,0 +1,31 @@
+<div 
+    class="msg mt-5"
+    [ngClass]="{
+        'right-msg': message?.type == 'user',
+        'left-msg': message?.type == 'bot'
+    }"
+>
+    <!-- <div
+     class="msg-img"
+     [ngClass]="{
+        'user-icon': message?.type == 'user',
+        'bot-icon': message?.type == 'bot'
+     }"
+    ></div> -->
+
+    <div class="msg-bubble">
+      <div class="msg-info">
+        <div class="msg-info-name">{{ getName() }}</div>
+      </div>
+
+      <div class="msg-text" *ngIf="!message?.loader">
+        <!-- disable sanitizer using markdown component -->
+        <markdown>
+          {{message?.content}}
+        </markdown>
+      </div>
+      <div class="msg-text" *ngIf="message?.loader">
+        <span class="loader"></span>
+      </div>
+    </div>
+  </div>
