@@ -1,27 +1,30 @@
 <section class="msger">
     <main #chat class="msger-chat">
-        <div *ngFor="let historyMessage of messages">
+        <div *ngFor="let historyMessage of messages; let i = index">
             <app-message 
                 [message]="historyMessage"
             ></app-message>
         </div>
     </main>
 
-    <form class="msger-inputarea">
+    <form class="msger-inputarea" >
         <input 
             [(ngModel)]="messageContent" 
             type="text" 
             class="msger-input"
             placeholder="Enter your message..."
             name="messageInput"
+            [disabled]="waiting"
         >
         <button 
             type="submit" 
+            [ngClass]="{'disabled': waiting}"
             class="msger-send-btn" 
             (click)="sendMessage()"
             [disabled]="waiting"
         >
             Send
         </button>
+
     </form>
 </section>

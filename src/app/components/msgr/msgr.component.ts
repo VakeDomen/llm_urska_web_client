@@ -1,5 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Message } from '../message/message.component';
+import { MessageResponse, SocketService } from 'src/app/services/socket.service';
+import { MarkdownService } from 'ngx-markdown';
 
 @Component({
   selector: 'app-msgr',
@@ -13,8 +15,9 @@ export class MsgrComponent implements OnInit {
   public waiting: boolean = false;
   public sloConversation: boolean = false;
   public hydeConversation: boolean = false;
-  
-  private stream: boolean = false;
+  public prompted: boolean = false;
+  public streamMessage: Message | undefined;
+
 
   @ViewChild('chat') private messenger!: ElementRef;
 
@@ -29,6 +32,24 @@ export class MsgrComponent implements OnInit {
       loader: false,
     } as Message;
     this.messages.push(botMsg);
+    SocketService.messages$.subscribe(this.messageParser)
+  }
+
+  private messageParser = (response: MessageResponse) => {
+    const content = JSON.parse(response.data);
+    if (content["PromptResponseToken"] != undefined) {
+      if (!this.streamMessage) {
+        return;
+      }
+      this.streamMessage.loader = false;
+      this.streamMessage.content = this.streamMessage.content + content["PromptResponseToken"];
+      this.scrollToBottom()
+    }
+
+    if (content["PromptResponse"] != undefined) {
+      this.waiting = false;
+      SocketService.stopWaitingMessage();
+    }
   }
 
   async sendMessage(): Promise<void> {
@@ -41,7 +62,6 @@ export class MsgrComponent implements OnInit {
       loader: false,
     } as Message;
     this.messages.push(userMsg);
-    setTimeout(() => this.scrollToBottom(), 10);
     this.messageContent = ''; // Clear input after sending
 
     const botMsg = {
@@ -50,36 +70,9 @@ export class MsgrComponent implements OnInit {
       loader: true,
     } as Message;
     this.messages.push(botMsg);
-    setTimeout(() => this.scrollToBottom(), 10)
-
-    // if (this.stream) {
-    //     this.chatService.streamData(userMsg.content).subscribe({
-    //       next: (data: string) => {
-    //         botMsg.loader = false;
-    //         botMsg.content += data;
-    //       },
-    //       error: (error: any) => console.error(error),
-    //     });
-    // } else if (this.chatConversation) {
-    //   botMsg.content = await this.chatService.chat(userMsg.content);
-    // } else {
-    //   // botMsg.content = await this.chatService.query(userMsg.content);
-    //   botMsg.content = await this.chatService.query_hyde(userMsg.content);
-    // }
-
-    // this.chatService.lang = this.sloConversation ? "sl" : "en";
-    // if (this.hydeConversation) {
-    //   botMsg.content = await this.chatService.query_hyde(userMsg.content);
-    // } else {
-    //   botMsg.content = await this.chatService.query(userMsg.content);
-    // }
-
-    botMsg.loader = false;
-
-
-
-    setTimeout(() => this.scrollToBottom(), 10)
-    this.waiting = false;
+    this.streamMessage = botMsg;
+    this.prompted = true;
+    SocketService.sendMessage("prompt", `Prompt ${userMsg.content}`);
   }
 
   scrollToBottom(): void {

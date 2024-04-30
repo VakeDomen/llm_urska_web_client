@@ -40,7 +40,7 @@ export class SocketService {
             this.socket?.send(message);
           }
         } else {
-          SocketService.waitingMessage = undefined;
+          // SocketService.waitingMessage = undefined;
         }
       } else {
         console.log("Socket que is broken");
@@ -73,6 +73,10 @@ export class SocketService {
 
   public static getState(): number | undefined {
     return this.socket?.readyState;
+  }
+
+  public static stopWaitingMessage() {
+    this.waitingMessage = undefined;
   }
 
   public static close(): void {

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +22,9 @@ import { MarkdownModule } from 'ngx-markdown';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MarkdownModule.forRoot(),
+    MarkdownModule.forRoot({
+      sanitize: SecurityContext.NONE
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
