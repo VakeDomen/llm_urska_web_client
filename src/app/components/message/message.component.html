@@ -1,7 +1,7 @@
 <div 
     class="msg mt-5"
     [ngClass]="{
-        'right-msg': message?.type == 'user',
+        'right-msg has-text-centered': message?.type == 'user',
         'left-msg': message?.type == 'bot'
     }"
 >
@@ -14,7 +14,7 @@
     ></div> -->
 
     <div class="msg-bubble">
-      <div class="msg-info">
+      <div class="msg-info" *ngIf="message?.type == 'bot'">
         <div class="msg-info-name">{{ getName() }}</div>
       </div>
 

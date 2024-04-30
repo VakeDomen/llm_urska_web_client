@@ -26,12 +26,12 @@ export class MsgrComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const botMsg = {
-      content: "Hello, how can I help you?",
-      type: 'bot',
-      loader: false,
-    } as Message;
-    this.messages.push(botMsg);
+    // const botMsg = {
+    //   content: "Hello, how can I help you?",
+    //   type: 'bot',
+    //   loader: false,
+    // } as Message;
+    // this.messages.push(botMsg);
     SocketService.messages$.subscribe(this.messageParser)
   }
 
