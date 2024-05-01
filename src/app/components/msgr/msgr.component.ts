@@ -21,17 +21,9 @@ export class MsgrComponent implements OnInit {
 
   @ViewChild('chat') private messenger!: ElementRef;
 
-  constructor(
-    // private chatService: ChatService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    // const botMsg = {
-    //   content: "Hello, how can I help you?",
-    //   type: 'bot',
-    //   loader: false,
-    // } as Message;
-    // this.messages.push(botMsg);
     SocketService.messages$.subscribe(this.messageParser)
   }
 
@@ -60,6 +52,7 @@ export class MsgrComponent implements OnInit {
       content: this.messageContent,
       type: 'user',
       loader: false,
+      state: ""
     } as Message;
     this.messages.push(userMsg);
     this.messageContent = ''; // Clear input after sending
@@ -68,6 +61,7 @@ export class MsgrComponent implements OnInit {
       content: "",
       type: 'bot',
       loader: true,
+      state: "Waiting for the server..."
     } as Message;
     this.messages.push(botMsg);
     this.streamMessage = botMsg;
