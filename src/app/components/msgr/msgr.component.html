@@ -1,13 +1,21 @@
 <section class="msger">
-    <main #chat class="msger-chat">
-        <div *ngFor="let historyMessage of messages; let i = index">
+    <main #chat class="msger-chat" *ngIf="panel == 'response'">
+        <div *ngFor="let historyMessage of messages">
             <app-message 
                 [message]="historyMessage"
             ></app-message>
         </div>
     </main>
 
-    <form class="msger-inputarea" >
+    <main #chat class="msger-chat" *ngIf="panel == 'passages'">
+        <div *ngFor="let passage of passages">
+            <app-message 
+                [message]="passage"
+            ></app-message>
+        </div>
+    </main>
+
+    <form class="msger-inputarea" *ngIf="!prompted">
         <input 
             [(ngModel)]="messageContent" 
             type="text" 
@@ -25,6 +33,14 @@
         >
             Send
         </button>
-
     </form>
+
+    <div class="level msger-inputarea" *ngIf="prompted">
+        <div class="level-left">
+            <button class="button is-primary is-outlined" (click)="toggleCheckedPassages()">Toggle checked passages</button>
+        </div>
+        <div class="level-right">
+            <button class="button is-primary" (click)="nextQuestion()">Next question</button>
+        </div>
+    </div>
 </section>

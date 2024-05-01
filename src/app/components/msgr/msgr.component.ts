@@ -10,11 +10,11 @@ import { MarkdownService } from 'ngx-markdown';
 })
 export class MsgrComponent implements OnInit {
 
+  public panel: 'passages' | 'response' = 'response';
   public messageContent: string = '';
   public messages: Message[] = [];
+  public passages: Message[] = [];
   public waiting: boolean = false;
-  public sloConversation: boolean = false;
-  public hydeConversation: boolean = false;
   public prompted: boolean = false;
   public streamMessage: Message | undefined;
 
@@ -40,8 +40,40 @@ export class MsgrComponent implements OnInit {
 
     if (content["PromptResponse"] != undefined) {
       this.waiting = false;
+      this.prompted = true;
       SocketService.stopWaitingMessage();
     }
+
+    if (content["PromptPassage"] != undefined) {
+      this.passages.push({
+        content: content["PromptPassage"],
+        type: 'bot',
+        loader: false,
+        state: ""
+      } as Message)
+    }
+  }
+
+  public toggleCheckedPassages() {
+    if (this.panel == 'passages') {
+      this.panel = 'response'
+      return;
+    }
+    if (this.panel == 'response') {
+      this.panel = 'passages'
+      return;
+    }
+    this.scrollToBottom();
+  }
+
+  public nextQuestion() {
+    this.panel = 'response';
+    this.messageContent = '';
+    this.messages = [];
+    this.passages = [];
+    this.waiting = false;
+    this.prompted = false;
+    this.streamMessage = undefined;
   }
 
   async sendMessage(): Promise<void> {
@@ -55,6 +87,7 @@ export class MsgrComponent implements OnInit {
       state: ""
     } as Message;
     this.messages.push(userMsg);
+    this.passages.push(userMsg);
     this.messageContent = ''; // Clear input after sending
 
     const botMsg = {
@@ -65,7 +98,6 @@ export class MsgrComponent implements OnInit {
     } as Message;
     this.messages.push(botMsg);
     this.streamMessage = botMsg;
-    this.prompted = true;
     SocketService.sendMessage("prompt", `Prompt ${userMsg.content}`);
   }
 
