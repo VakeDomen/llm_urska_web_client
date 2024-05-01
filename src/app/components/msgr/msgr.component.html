@@ -15,43 +15,43 @@
         </div>
     </main>
 
-    <form class="msger-inputarea" *ngIf="!prompted">
-        <input 
-            [(ngModel)]="messageContent" 
-            type="text" 
-            class="msger-input"
-            placeholder="Enter your question..."
-            name="messageInput"
-            [disabled]="waiting"
-        >
-        <button 
-            type="submit" 
-            [ngClass]="{'disabled': waiting}"
-            class="msger-send-btn" 
-            (click)="sendMessage()"
-            [disabled]="waiting"
-        >
-            Send
-        </button>
-    </form>
-
-    <div class="level" *ngIf="prompted">
-        <div class="level-item">
-            <button 
-                class="button msger-send-btn is-outlined" 
-                (click)="toggleCheckedPassages()" 
-                data-tooltip="You can check what documents Urška looked at 
-                to give your answer. Giving thumbs up/down will tell urška 
-                whether the documents were relevant to the answer"
-            >
-                Evaluate looked-up documents
-            </button>
-        </div>
-        <div class="level-item">
-            <button class="button msger-send-btn" (click)="nextQuestion()">
-                Next question
-                <i class="fas fa-chevron-right ml-2"></i>
-            </button>
-        </div>
-    </div>
+    
 </section>
+<form class="msger-inputarea" *ngIf="!prompted">
+    <input 
+        [(ngModel)]="messageContent" 
+        type="text" 
+        class="msger-input"
+        placeholder="Enter your question..."
+        name="messageInput"
+        [disabled]="waiting"
+    >
+    <button 
+        type="submit" 
+        [ngClass]="{'disabled': waiting}"
+        class="msger-send-btn" 
+        (click)="sendMessage()"
+        [disabled]="waiting"
+    >
+        Send
+    </button>
+</form>
+<div class="level" *ngIf="prompted">
+    <div class="level-item">
+        <button 
+            class="button msger-send-btn is-outlined" 
+            (click)="toggleCheckedPassages()" 
+            data-tooltip="You can check what documents Urška looked at 
+            to give your answer. Giving thumbs up/down will tell urška 
+            whether the documents were relevant to the answer"
+        >
+            Evaluate looked-up documents
+        </button>
+    </div>
+    <div class="level-item">
+        <button class="button msger-send-btn" (click)="nextQuestion()">
+            Next question
+            <i class="fas fa-chevron-right ml-2"></i>
+        </button>
+    </div>
+</div>
