@@ -9,6 +9,7 @@ import { MsgrComponent } from './components/msgr/msgr.component';
 import { FormsModule } from '@angular/forms';
 import { MessageComponent } from './components/message/message.component';
 import { MarkdownModule } from 'ngx-markdown';
+import { ServerStatusComponent } from './components/server-status/server-status.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MarkdownModule } from 'ngx-markdown';
     ChatComponent,
     HeadComponent,
     MsgrComponent,
-    MessageComponent
+    MessageComponent,
+    ServerStatusComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,7 +18,7 @@ export class SocketService {
     this.socket = new WebSocket(url);
 
     this.socket.onopen = event => {
-      console.log('Connection opened:', event);
+      console.info('Connection opened:', event);
     };
 
     this.socket.onmessage = event => {
@@ -28,7 +28,7 @@ export class SocketService {
     };
 
     this.socket.onclose = event => {
-      console.log('Connection closed:', event);
+      console.info('Connection closed:', event);
     };
 
     this.socket.onerror = event => {

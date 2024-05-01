@@ -1,0 +1,7 @@
+<div class="has-text-right status">
+
+    
+    <p>{{ socketStatusLabel() }} </p>
+    <p>{{ serverLoadLabel() }} </p>
+    <p *ngIf="inQue()">{{ posLabel() }} </p>
+</div>
