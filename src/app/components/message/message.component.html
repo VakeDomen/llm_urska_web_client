@@ -15,7 +15,9 @@
 
     <div class="msg-bubble">
       <div class="msg-info" *ngIf="message?.type == 'bot'">
-        <div class="msg-info-name">{{ getName() }}</div>
+        <div class="msg-info-name">
+          <span>{{ getName() }}</span>
+        </div>
       </div>
 
       <div class="msg-text" *ngIf="!message?.loader" >
@@ -29,5 +31,10 @@
         <span class="loader"></span>
         <span class="loader-text">{{message?.state}}</span>
       </p>
+
+      <div *ngIf="message?.type=='bot'">
+        <i class="rate-icon is-hoverable far fa-thumbs-up"></i>
+        <i class="rate-icon is-hoverable far fa-thumbs-down"></i>
+      </div>
     </div>
   </div>

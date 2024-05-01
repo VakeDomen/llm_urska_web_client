@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   
 
   ngOnInit(): void {
-    SocketService.connect("ws://127.0.0.1:4321");
+    SocketService.connect("ws://usrka.famnit.upr.si:4321");
   }
 
 }

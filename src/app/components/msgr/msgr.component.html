@@ -35,12 +35,23 @@
         </button>
     </form>
 
-    <div class="level msger-inputarea" *ngIf="prompted">
-        <div class="level-left">
-            <button class="button is-primary is-outlined" (click)="toggleCheckedPassages()">Toggle checked passages</button>
+    <div class="level" *ngIf="prompted">
+        <div class="level-item">
+            <button 
+                class="button msger-send-btn is-outlined" 
+                (click)="toggleCheckedPassages()" 
+                data-tooltip="You can check what documents Urška looked at 
+                to give your answer. Giving thumbs up/down will tell urška 
+                whether the documents were relevant to the answer"
+            >
+                Evaluate looked-up documents
+            </button>
         </div>
-        <div class="level-right">
-            <button class="button is-primary" (click)="nextQuestion()">Next question</button>
+        <div class="level-item">
+            <button class="button msger-send-btn" (click)="nextQuestion()">
+                Next question
+                <i class="fas fa-chevron-right ml-2"></i>
+            </button>
         </div>
     </div>
 </section>

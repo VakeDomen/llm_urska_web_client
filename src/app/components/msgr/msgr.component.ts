@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Message } from '../message/message.component';
 import { MessageResponse, SocketService } from 'src/app/services/socket.service';
-import { MarkdownService } from 'ngx-markdown';
 
 @Component({
   selector: 'app-msgr',
