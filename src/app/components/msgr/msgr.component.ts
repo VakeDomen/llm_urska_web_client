@@ -40,7 +40,6 @@ export class MsgrComponent implements OnInit {
     if (content["PromptResponse"] != undefined) {
       this.waiting = false;
       this.prompted = true;
-      SocketService.stopWaitingMessage();
     }
 
     if (content["PromptPassage"] != undefined) {
@@ -97,7 +96,7 @@ export class MsgrComponent implements OnInit {
     } as Message;
     this.messages.push(botMsg);
     this.streamMessage = botMsg;
-    SocketService.sendMessage("prompt", `Prompt ${userMsg.content}`);
+    SocketService.sendMessage(`Prompt ${userMsg.content}`);
   }
 
   scrollToBottom(): void {
