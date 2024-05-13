@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  wss: "wss://urska.famnit.upr.si",
 };

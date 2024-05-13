@@ -11,7 +11,6 @@ export class AppComponent implements OnInit {
   
 
   ngOnInit(): void {
-    SocketService.connect("wss://urska.famnit.upr.si");
   }
 
 }

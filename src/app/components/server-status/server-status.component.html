@@ -2,7 +2,7 @@
 
     
     <p class="is-hidden-mobile">Connection: {{ socketStatusLabel() }} </p>
-    <p [ngClass]="{
+    <p *ngIf="isWssConnected()" [ngClass]="{
             'green': serverLoadLabel() == 'Healthy',
             'yellow': serverLoadLabel() == 'Light',
             'red': serverLoadLabel() == 'Heavy'

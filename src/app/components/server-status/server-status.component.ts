@@ -22,7 +22,7 @@ enum SocketStatus {
   styleUrl: './server-status.component.sass'
 })
 export class ServerStatusComponent implements OnInit {
-  private socketStatus: SocketStatus =SocketStatus.Closed;
+  private socketStatus: SocketStatus = SocketStatus.Closed;
   private que: number = 0;
   private pos: number = 0;
   
@@ -56,6 +56,8 @@ export class ServerStatusComponent implements OnInit {
     if (statusNum == 1) this.socketStatus = SocketStatus.Open;
     if (statusNum == 2) this.socketStatus = SocketStatus.Closing;
     if (statusNum == 3) this.socketStatus = SocketStatus.Closed;
+
+    if (this.socketStatus == SocketStatus.Closed) SocketService.connect("wss://urska.famnit.upr.si");
   }
 
   public posLabel(): string {
@@ -91,5 +93,9 @@ export class ServerStatusComponent implements OnInit {
 
   public inQue(): boolean {
     return (this.que  > 2)
+  }
+
+  public isWssConnected(): boolean {
+    return this.socketStatus == SocketStatus.Open;
   }
 }
