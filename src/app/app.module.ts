@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MessageComponent } from './components/message/message.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { ServerStatusComponent } from './components/server-status/server-status.component';
+import { PreQuestionPanelComponent } from './components/pre-question-panel/pre-question-panel.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ServerStatusComponent } from './components/server-status/server-status.
     MsgrComponent,
     MessageComponent,
     ServerStatusComponent,
+    PreQuestionPanelComponent,
   ],
   imports: [
     BrowserModule,

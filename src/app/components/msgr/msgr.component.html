@@ -1,4 +1,10 @@
 <section class="msger">
+    <main #chat class="msger-chat" *ngIf="panel == 'pre-panel'">
+        <app-pre-question-panel
+            (pileUpdate)=pileUpdate($event)
+        ></app-pre-question-panel>
+    </main>
+
     <main #chat class="msger-chat" *ngIf="panel == 'response'">
         <div *ngFor="let historyMessage of messages">
             <app-message 

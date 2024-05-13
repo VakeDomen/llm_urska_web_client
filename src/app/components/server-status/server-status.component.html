@@ -1,7 +1,13 @@
 <div class="has-text-right status">
 
     
-    <p class="is-hidden-mobile">Connection: {{ socketStatusLabel() }} </p>
+    <p class="is-hidden-mobile"
+        [ngClass]="{
+            'green': socketStatusLabel() == 'Open',
+            'yellow': socketStatusLabel() == 'Connecting...',
+            'red': (socketStatusLabel() == 'Closing...'  || socketStatusLabel() == 'Closed')
+        }"
+    >Connection: {{ socketStatusLabel() }} </p>
     <p *ngIf="isWssConnected()" [ngClass]="{
             'green': serverLoadLabel() == 'Healthy',
             'yellow': serverLoadLabel() == 'Light',

@@ -9,14 +9,14 @@ import { MessageResponse, SocketService } from 'src/app/services/socket.service'
 })
 export class MsgrComponent implements OnInit {
 
-  public panel: 'passages' | 'response' = 'response';
+  public panel: 'pre-panel' | 'passages' | 'response' = 'pre-panel';
   public messageContent: string = '';
   public messages: Message[] = [];
   public passages: Message[] = [];
   public waiting: boolean = false;
   public prompted: boolean = false;
   public streamMessage: Message | undefined;
-
+  private pileSelectorString: string | undefined;
 
   @ViewChild('chat') private messenger!: ElementRef;
 
@@ -65,7 +65,7 @@ export class MsgrComponent implements OnInit {
   }
 
   public nextQuestion() {
-    this.panel = 'response';
+    this.panel = 'pre-panel';
     this.messageContent = '';
     this.messages = [];
     this.passages = [];
@@ -96,12 +96,17 @@ export class MsgrComponent implements OnInit {
     } as Message;
     this.messages.push(botMsg);
     this.streamMessage = botMsg;
-    SocketService.sendMessage(`Prompt ${userMsg.content}`);
+    SocketService.sendMessage(`Prompt ${this.pileSelectorString} ${userMsg.content}`);
+    this.panel = 'response';
   }
 
   scrollToBottom(): void {
     try {
       this.messenger.nativeElement.scrollTop = this.messenger.nativeElement.scrollHeight;
     } catch (err) { }
+  }
+
+  public pileUpdate(pileSelectorString: string): void {
+    this.pileSelectorString = pileSelectorString;
   }
 }
