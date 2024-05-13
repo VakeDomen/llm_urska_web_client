@@ -4,7 +4,7 @@
 
     <ul class="mt-3">
         <li class="pile-i" *ngFor="let pile of piles">
-            <input  id="{{pile.selector}}" type="checkbox" [checked]="pile.active" (checked)="emitCheck()"/>
+            <input  id="{{pile.selector}}" type="checkbox" [(ngModel)]="pile.active" (ngModelChange)="emitCheck()"/>
             <label class="ml-2 is-size-5" for="{{pile.selector}}">{{pile.label}}</label>
         </li>
     </ul>
