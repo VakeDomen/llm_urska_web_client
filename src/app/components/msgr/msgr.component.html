@@ -9,6 +9,7 @@
         <div *ngFor="let historyMessage of messages">
             <app-message 
                 [message]="historyMessage"
+                (ratingChange)="rateResponse($event)"
             ></app-message>
         </div>
     </main>
@@ -17,6 +18,7 @@
         <div *ngFor="let passage of passages">
             <app-message 
                 [message]="passage"
+                (ratingChange)="ratePassage($event)"
             ></app-message>
         </div>
     </main>
